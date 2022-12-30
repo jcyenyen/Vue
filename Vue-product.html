@@ -59,8 +59,9 @@
                                     {{v.price}}
                                 </td>
                                 <td width="150">
-                                    <span class="text-success">啟用</span>
-                                    <span>未啟用</span>
+                                    <span v-if="detail.title===v.title" class="text-success">啟用</span> 
+                                    <!--點擊到的等於此行列表-->
+                                    <span v-else>未啟用</span>
                                 </td>
                                 <td width="120">
                                     <button type="button" v-on:click="detail=v" class="btn btn-primary">查看細節</button>
@@ -68,27 +69,27 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p>目前有 <span>{{ }}</span> 項產品</p>
+                    <p>目前有 <span>{{detail.num}}</span> 項產品</p>
                 </div>
                 <div class="col-md-6">
                     <h2>單一產品細節</h2>
-                    <div class="card mb-3">
+                    <div v-if="detail.title" class="card mb-3">
                         <img v-bind:src="detail.imageUrl" class="card-img-top primary-image" alt="主圖">
                         <div class="card-body">
                             <h5 class="card-title">
-                                {{ }}
-                                <span class="badge bg-primary ms-2">{{ }}</span>
+                                {{detail.title}}
+                                <span class="badge bg-primary ms-2">{{detail.content}}</span>
                             </h5>
                             <p class="card-text">商品描述：{{detail.description }}</p>
                             <p class="card-text">商品內容：{{detail.category }}</p>
                             <div class="d-flex">
-                                <p class="card-text me-2">{{ }}</p>
-                                <p class="card-text text-secondary"><del>{{ }}</del></p>
-                                元 / {{ }}
+                                <p class="card-text me-2">{{detail.price }}</p>&nbsp
+                                <p class="card-text text-secondary"><del>{{detail.origin_price}}</del></p>
+                                元/{{detail.unit}}
                             </div>
                         </div>
                     </div>
-                    <img src="" alt="" class="images m-2">
+                    <img v-if="detail.title" v-bind:src="detail.imagesUrl[0]" alt="副圖" class="images m-2">
                     <p class="text-secondary">請選擇一個商品查看</p>
                 </div>
             </div>
@@ -122,7 +123,7 @@
                     {
                         category: "蛋糕",
                         content: "尺寸：6寸",
-                        description: "蜜蜂蜜蛋糕，夾層夾上酸酸甜甜的檸檬餡，清爽可口的滋味讓人口水直流！",
+                        description: "蜂蜜蛋糕，夾層夾上酸酸甜甜的檸檬餡，清爽可口的滋味讓人口水直流！",
                         id: "-McJ-VvcwfN1_Ye_NtVA",
                         is_enabled: 16,
                         origin_price: 1000,
